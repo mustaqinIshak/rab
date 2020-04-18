@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/rabs', 'RabController@index');
+
+Route::get('/rabs/${id}','RabController@show') ;
+
+Route::get('/rabs/create','RabController@create');
+
+Route::post('/rabs/${id}','RabController@store');
+
+Route::delete('/rabs/${id}','RabController@destroy');
