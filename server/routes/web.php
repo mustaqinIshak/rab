@@ -18,11 +18,13 @@ Route::get('/', function () {
 });
 
 Route::get('/rabs', 'RabController@index');
-
 Route::get('/rabs/${id}','RabController@show') ;
-
 Route::get('/rabs/create','RabController@create');
-
-Route::post('/rabs/${id}','RabController@store');
-
+Route::post('/rabs','RabController@store');
 Route::delete('/rabs/${id}','RabController@destroy');
+
+Route::get('/barangs', 'BarangController@index');
+Route::get('barangs/$id', 'BarangController@show');
+Route::get('/barangs/create', 'BarangController@create');
+Route::post('/barangs', 'BarangController@store');
+Route::delete('/barangs/${id}', 'BarangsController@destroy');
