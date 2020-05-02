@@ -9,7 +9,7 @@ class BarangController extends Controller
 {
     //
     public function create() {
-        return view('barang.create');
+        return view('barangs.create');
     }
 
     public function store(){
