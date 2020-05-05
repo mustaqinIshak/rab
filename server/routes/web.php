@@ -27,4 +27,4 @@ Route::get('/barangs', 'BarangController@index');
 Route::get('barangs/$id', 'BarangController@show');
 Route::get('/barangs/create', 'BarangController@create');
 Route::post('/barangs', 'BarangController@store');
-Route::delete('/barangs/${id}', 'BarangsController@destroy');
+Route::delete('/barangs/destroy/${id}', 'BarangsController@destroy');

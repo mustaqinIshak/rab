@@ -52,3 +52,7 @@ html, body {
 .main-content {
     width: 100%;
 }
+
+.form-barang {
+    width: 40vw;
+}

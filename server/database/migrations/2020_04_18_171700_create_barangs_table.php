@@ -19,7 +19,7 @@ class CreateBarangsTable extends Migration
             $table->string('satuan');
             $table->integer('material')->nullable();
             $table->integer('jasa')->nullable();
-            $table->string('keterangan', 255);
+            $table->string('keterangan', 255)->nullable();
             $table->timestamps();
         });
     }

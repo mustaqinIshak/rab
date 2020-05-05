@@ -12,18 +12,23 @@ class BarangController extends Controller
         return view('barangs.create');
     }
 
-    public function store(){
-        $barang = new Barang();
+    public function store(Request $request){
 
-        $barang->nama = request('nama');
-        $barang->satuan = request('satuan');
-        $barang->material =request('material');
-        $barang->jasa = request('jasa');
-        $barang->keterangan = request('keterangan');
+        $request->validate([
+            'nama'=>'required'
+        ]);
+            $barang = new Barang();
 
-        $barang->save();
-
-        return redirect('/barangs')->with('mssg', 'barang berhasil di input');
+            $barang->nama = request('nama');
+            $barang->satuan = request('satuan');
+            $barang->material =request('material');
+            $barang->jasa = request('jasa');
+            $barang->keterangan = request('keterangan');
+            $barang->save();
+    
+            
+            return redirect('/barangs')->with('mssg', 'barang berhasil di input');
+        
     }
 
     public function index() {

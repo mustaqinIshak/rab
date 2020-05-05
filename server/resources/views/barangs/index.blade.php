@@ -1,5 +1,12 @@
 @extends('layouts.layout')
 @section('content')
+<div class="col-6">
+    @if(session('mssg'))
+        <div class="alert alert-success">
+            {{(session('mssg'))}}
+        </div>
+    @endif
+</div>
    <div class='barang'>
         <table class="table">
             <thead class="thead-dark">
@@ -25,7 +32,7 @@
                         <td>
                             <button type="button" class="btn btn-info">detail</button>
                             <button type="button" class="btn btn-secondary">edit</button>
-                            <button type="button" class="btn btn-danger">delete</button>
+                            <a href="barangs/destroy/{{$barang->id}}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 @endforeach
