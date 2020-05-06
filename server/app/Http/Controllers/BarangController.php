@@ -40,8 +40,25 @@ class BarangController extends Controller
         $barang = Barang::findOrFail($id);
 
         return view('barangs.show', ['barang'=>$barang]);
+
     }
 
+    public function update(Request $request) {
+        $request->validate([
+            'nama'=>'required'
+        ]);
+
+        Barang::where('id', $request -> id)->update([
+                'nama'=>$request -> nama,
+                'satuan'=> $request -> satuan,
+                'material'=> $request -> material,
+                'jasa'=> $request -> jasa,
+                'keterangan' => $request -> keterangan
+         ]);
+        
+
+         return redirect('/barangs')->with('mssg', 'data berhasil di update');
+    }
     public function destroy($id) {
         $barang = Barang::findOrFail($id);
         $barang->delete();

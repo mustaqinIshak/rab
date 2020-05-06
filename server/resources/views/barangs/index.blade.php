@@ -2,12 +2,25 @@
 @section('content')
 <div class="col-6">
     @if(session('mssg'))
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{(session('mssg'))}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
 </div>
    <div class='barang'>
+        <div class="tambah-barang">
+            <a href="/barangs/create" >
+                <i class="material-icons">
+                    add
+                </i>
+                <span class="text">
+                    Tambah Barang
+                </span>
+            </a>
+        </div>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -26,13 +39,22 @@
                         <th scope="col">{{$barang->id}}</th>
                         <td>{{$barang->nama}}</td>
                         <td>{{$barang->satuan}}</td>
-                        <td>{{$barang->material}}</td>
-                        <td>{{$barang->jasa}}</td>
+                        <td> 
+                            @if($barang->material)
+                                Rp.{{$barang->material}}
+                            @else
+                                    -
+                            @endif
+                        </td>
+                        <td>@if($barang->jasa)
+                                Rp.{{$barang->jasa}}
+                            @else
+                                    -
+                            @endif</td>
                         <td>{{$barang->keterangan}}</td>
                         <td>
-                            <button type="button" class="btn btn-info">detail</button>
-                            <button type="button" class="btn btn-secondary">edit</button>
-                            <a href="barangs/destroy/{{$barang->id}}" class="btn btn-danger">Delete</a>
+                            <a href="/barangs/{{$barang->id}}" class="btn btn-secondary">detail</a>
+                            <a href="/barangs/destroy/{{$barang->id}}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 @endforeach

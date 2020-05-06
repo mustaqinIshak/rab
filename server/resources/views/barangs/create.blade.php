@@ -4,13 +4,14 @@
         <div class="row">
             <div class="col">
                 <div class="form-barang">
-                    @if(count($errors) > 0)
+                    @if($errors->any())
                         @foreach($errors->all() as $error)
                             <div class="alert alert-danger">
                                 {{$error}}
                             </div>
                         @endforeach
                     @endif
+                   
                     <form action="/barangs" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
@@ -27,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <label for="jasa">Jasa :</label>
-                            <input type="number" class="form-control" id="jasa" name="meterial">
+                            <input type="number" class="form-control" id="jasa" name="jasa">
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan :</label>

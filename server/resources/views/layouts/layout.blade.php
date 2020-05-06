@@ -80,16 +80,6 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/barangs/create" class="nav-link">
-                        <i class="material-icons">
-                            add
-                        </i>
-                        <span class="text">
-                            Tambah Barang
-                        </span>
-                    </a>
-                </li>
             </ul>
         </div>
     </div>

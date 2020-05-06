@@ -56,3 +56,9 @@ html, body {
 .form-barang {
     width: 40vw;
 }
+
+.tambah-barang {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 1rem;
+}
