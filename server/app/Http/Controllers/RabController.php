@@ -23,7 +23,9 @@ class RabController extends Controller
     }
 
     public function store(Request $requset){
-        
+        $request->validate([
+            ''
+        ]);   
     }
 
     public function edit($id){

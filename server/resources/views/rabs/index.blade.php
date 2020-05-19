@@ -3,6 +3,15 @@
     <div class="container">
         <div class="row">
             <div class="col mb-3">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div><br />
+                @endif
                 <form action="/rabs/store" method="post">
                     <div class="form-group">
                         <label for="norab">No Rab :</label>
@@ -45,4 +54,5 @@
             </div>
         </div>
     </div>
+    <img src="css\img\takin.jpg" alt="">
 @endsection
