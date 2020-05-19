@@ -17,7 +17,7 @@ class CreateRabsTable extends Migration
             $table->id();
             $table->string('noRab');
             $table->string('nama');
-            $table->string('user');
+            $table->string('user')->nullable($value = true);
             $table->timestamps();
         });
     }

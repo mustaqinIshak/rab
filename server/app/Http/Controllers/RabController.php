@@ -22,10 +22,18 @@ class RabController extends Controller
         
     }
 
-    public function store(Request $requset){
+    public function store(Request $request){
         $request->validate([
-            ''
-        ]);   
+            'noRab'=>'required',
+            'nama'=>'required'
+        ]);
+        $rab = new Rab ([
+            'noRab' => $request->get('noRab'),
+            'nama' => $request->get('nama')
+        ]);
+        
+        $rab->save();
+        return redirect('/rabs')->with('mssg', 'rab berhasil dibuat');
     }
 
     public function edit($id){

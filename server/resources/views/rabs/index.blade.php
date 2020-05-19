@@ -7,12 +7,24 @@
                     <div class="alert alert-danger">
                         <ul>
                             @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
+                                     <li>{{$error}}</li>
                             @endforeach
                         </ul>
-                    </div><br />
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <br />
+                @elseif(session('mssg'))
+                    <div class="alert alert-success">
+                        {{(session('mssg'))}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
-                <form action="/rabs/store" method="post">
+                <form action="/rabs" method="post">
+                    {{csrf_field()}}
                     <div class="form-group">
                         <label for="norab">No Rab :</label>
                         <input class="form-control" type="text" id="norab" name="noRab">
@@ -32,6 +44,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">No RAB</th>
+                            <th scope="col">Nama</th>
                             <th scope="col">Tanggal</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -54,5 +67,4 @@
             </div>
         </div>
     </div>
-    <img src="css\img\takin.jpg" alt="">
 @endsection

@@ -61,7 +61,7 @@
         <div class="sidebar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/rabs" class="nav-link">
                         <i class="material-icons">
                             unarchive
                         </i>

@@ -8,4 +8,5 @@ class Rab extends Model
 {
     //
     protected $table = "rabs";
+    protected $fillable = ['noRab', 'nama'];
 }
