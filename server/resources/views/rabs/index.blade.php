@@ -57,8 +57,13 @@
                                 <td>{{$rab->nama}}</td>
                                 <td>{{$rab->created_at}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-primary">Input Barang</a>
-                                    <a href="#" class="btn btn-danger">Hapus</a>
+                                    <a href="/rabBarangs/{{$rab->id}}" class="btn btn-primary">Input Barang</a>
+                                    <a href="/rabs/{{$rab->id}}" class="btn btn-secondary">Edit</a>
+                                    <form action="/rabs/{{$rab->id}}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

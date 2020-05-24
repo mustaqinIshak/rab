@@ -24,9 +24,14 @@ Route::post('/rabs','RabController@store');
 Route::patch('/rabs/{id}', 'RabController@update');
 Route::delete('/rabs/{id}','RabController@destroy');
 
+Route::get('/barangs/buat', 'BarangController@create');
 Route::get('/barangs', 'BarangController@index');
 Route::get('/barangs/{id}', 'BarangController@show');
-Route::get('/barangs/create', 'BarangController@create');
 Route::post('/barangs', 'BarangController@store');
 Route::post('/barangs/update', 'BarangController@update');
 Route::get('/barangs/destroy/{id}', 'BarangController@destroy');
+
+Route::get('/rabBarangs/{id}', 'RabBarangController@index');
+Route::get('/rabBarangs/add/{id}', 'RabBarangController@add');
+Route::post('/rabBarangs', 'RabBarangController@store');
+Route::delete('/rabBarangs', 'RabBarangController@destroy');

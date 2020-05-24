@@ -18,8 +18,8 @@ class RabController extends Controller
     }
 
     public function show($id) {
-        
-        
+        $rab = Rab::findOrFail($id);
+        return view('rabs.show', ['rab'=>$rab]);
     }
 
     public function store(Request $request){
@@ -36,16 +36,23 @@ class RabController extends Controller
         return redirect('/rabs')->with('mssg', 'rab berhasil dibuat');
     }
 
-    public function edit($id){
+    public function update(Request $request, $id){
+        $request->validate([
+            'noRab'=>'required',
+            'nama'=>'required'
+        ]);
+        $rab = Rab::findOrFail($id);
+        $rab->noRab = $request->get('noRab');
+        $rab->nama = $request->get('nama');
+        $rab->save();
 
-    }
-
-    public function update(Request $requset, $id){
-
+        return redirect('/rabs')->with('mssg', 'rab berhasil di update');
     }
 
     public function destroy($id){
-
+        $rab = Rab::findOrFail($id);
+        $rab->delete();
+        return redirect('/rabs')->with('mssg', 'rab berhasil dihapus');
     }
 
 }

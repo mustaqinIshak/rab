@@ -12,7 +12,7 @@
 </div>
    <div class='barang'>
         <div class="tambah-barang">
-            <a href="/barangs/create" >
+            <a href="/barangs/buat" >
                 <i class="material-icons">
                     add
                 </i>
