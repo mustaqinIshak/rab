@@ -18,6 +18,11 @@ class RabController extends Controller
         return view('rabs.index', ['rabs'=>$rabs]);
     }
 
+    public function edit($id) {
+        $rab = Rab::findOrFail($id);
+        return view('rabs.edit', ['rab'=>$rab]);
+    }
+
     public function show($id) {
         $rab = Rab::findOrFail($id);
         return view('rabs.show', ['rab'=>$rab]);

@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('/rabs', 'RabController@index');
 Route::get('/rabs/{id}','RabController@show') ;
+Route::get('/rabs/edit/{id}','RabController@edit') ;
 Route::get('/rabs/create','RabController@create');
 Route::post('/rabs','RabController@store');
 Route::patch('/rabs/{id}', 'RabController@update');
@@ -31,7 +32,6 @@ Route::post('/barangs', 'BarangController@store');
 Route::post('/barangs/update', 'BarangController@update');
 Route::get('/barangs/destroy/{id}', 'BarangController@destroy');
 
-Route::get('/rabBarangs/{id}', 'RabBarangController@index');
-Route::get('/rabBarangs/add/{id}', 'RabBarangController@add');
+Route::get('/rabBarangs/add/{id}', 'RabBarangController@create');
 Route::post('/rabBarangs', 'RabBarangController@store');
 Route::delete('/rabBarangs', 'RabBarangController@destroy');

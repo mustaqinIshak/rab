@@ -57,8 +57,8 @@
                                 <td>{{$rab->nama}}</td>
                                 <td>{{$rab->created_at}}</td>
                                 <td>
-                                    <a href="/rabBarangs/{{$rab->id}}" class="btn btn-primary">Input Barang</a>
-                                    <a href="/rabs/{{$rab->id}}" class="btn btn-secondary">Edit</a>
+                                    <a href="/rabs/{{$rab->id}}" class="btn btn-primary">Detail</a>
+                                    <a href="/rabs/edit/{{$rab->id}}" class="btn btn-secondary">Edit</a>
                                     <form action="/rabs/{{$rab->id}}" method="post">
                                         @method('DELETE')
                                         @csrf

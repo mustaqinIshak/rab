@@ -18,8 +18,7 @@ class RabBarangController extends Controller
     public function index($id)
     {
         //
-        $rab = Rab::findOrFail($id);
-        return view('rabBarangs.index', ['rab' => $rab]);
+       
     }
 
     /**
@@ -27,9 +26,11 @@ class RabBarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        $barang = Barang::all();
+        return view('rabBarangs.create', ['barangs' => $barang]);
     }
 
     /**
