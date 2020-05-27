@@ -36,7 +36,8 @@
                     <th scope="col">Ket</th>
                 </thead>
                 <tbody>
-                    <th scope="row"></th>
+                    @foreach($rab->barangs as $barang)
+                    <th scope="row">{{$barang->nama}}</th>
                     <td></td>
                     <td></td>
                     <td></td>

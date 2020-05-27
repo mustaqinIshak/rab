@@ -15,6 +15,12 @@ class CreateRabBarangsTable extends Migration
     {
         Schema::create('rab_barangs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('rab_id');
+            $table->foreignId('barang_id');
+            $table->bigInteger('volume');
+            $table->bigInteger('totalMaterial')->nullabel($value = true);
+            $table->bigInteger('totalJasa')->nullabel($value = true);
+            $table->longText('keterangan')->nullabel($value = true);
             $table->timestamps();
         });
     }
