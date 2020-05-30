@@ -55,12 +55,13 @@ class RabBarangController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function showBarang($id)
+    {
+  
+        $barang = Barang::findOrFail($id);
+
+        return $barang;
+    }
     public function edit($id)
     {
         //

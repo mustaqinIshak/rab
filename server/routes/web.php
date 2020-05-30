@@ -33,5 +33,6 @@ Route::post('/barangs/update', 'BarangController@update');
 Route::get('/barangs/destroy/{id}', 'BarangController@destroy');
 
 Route::get('/rabBarangs/add/{id}', 'RabBarangController@create');
+Route::get('/rabBarangs/barang/{id}', 'RabBarangController@showBarang');
 Route::post('/rabBarangs', 'RabBarangController@store');
 Route::delete('/rabBarangs', 'RabBarangController@destroy');
