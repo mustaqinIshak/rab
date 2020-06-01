@@ -1,80 +1,129 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="container">
-        <div class="row">
-            <form action="/rabBarangs" method="post">
-            {{csrf_field()}}
-            <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    <label for="barang">Barang:</label>
-                   <select name="idBarang" id="barang" class="custom-select custom-select-lg mb-3">
-                        <option selected>---pilih barang---</option>
-                    @foreach($barangs as $barang)
-                        <option value="{{$barang->id}}">{{$barang->nama}}</option>
-                    @endforeach
-                   </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="volume">volume :</label>
-                    <input type="number" class="form-control" id="volume">
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="satuan">satuan :</label>
-                    <input type="text" class="form-control" id="satuan" disabled>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="material">harga material :</label>
-                    <input type="number" class="form-control" id="material" disabled>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="jasa">harga jasa :</label>
-                    <input type="number" class="form-control" id="jasa" disabled>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="totalMaterial">total Material :</label>
-                    <input type="number" class="form-control" id="totalMaterial" disabled>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="totalJasa">total Jasa :</label>
-                    <input type="number" class="form-control" id="totalJasa" disabled>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="keterangan">keterangan :</label>
-                    <input type="text" class="form-control" id="totaljasa">
-                </div>
-            </div>
-                <button type="submit" class="btn btn-primary">simpan</button>
-            </form>
+    <div class="container-fluid">
+    <button class="btn btn-create" id="tambah">tambah</button>
+        <div class="row" >
+                <form action="/rabBarangs" method="post" id="formRabBarang">
+            
+                    <span id="result"></span>
+                    <table class="table">
+                        <thead class="thead-dark" id="barang-table">
+                            <tr>
+                                <th scope="col">Nama Barang</th>
+                                <th scope="col">volume</th>
+                                <th scope="col">Satuan</th>
+                                <th scope="col">Harga Material</th>
+                                <th scope="col">Harga Jasa</th>
+                                <th scope="col">Total Material</th>
+                                <th scope="col">Total Jasa</th>
+                                <th scope="col">Ket</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select class="form-control pilihBarang">
+                                        <option selected>Choose...</option>
+                                        @foreach($barangs as $barang)
+                                            <option value="{{$barang->id}}">{{$barang->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control volume" name="volume[]" >
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control satuan" name="satuan[]"  readonly>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control hargaMaterial"  readonly>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control hargaJasa"  readonly>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control totalMaterial" name="totalMaterial[]"  readonly>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control totalJasa" name="totalJasa[]" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control keterangan" name="keterangan[]"  >
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-danger remove">hapus</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
         </div>
     </div>
     
 <script type="text/javascript">
   $(document).ready(function(){
+        let count = 1
+        let barang = null
 
-        $('#barang').on('change', function(){
-            let id = $('#barang').val()
-            $.ajax({
-                type : 'GET',
-                url : `/rabBarangs/barang/${id}`,
-                success : function(data) {
-                    console.log(data)
-                    $('#satuan').val(data.satuan)
-                    $('#material').val(data.material)
-                    $('#jasa').val(data.jasa)
+        $(".pilihBarang").change(function(){
+            let id = $('.pilihBarang').val()
+            console.log(id)
+            $.ajax({    
+                url: `/rabBarangs/barang/${id}`,
+                method: "GET",
+                success: function(data){   
+                    $('.satuan').val(data.satuan)
+                    $('.hargaMaterial').val(data.material)
+                    $('.hargaJasa').val(data.jasa)
                 },
-                error : function(){
-                    console.log(data)
+                faill: function(error){
+                    console.log(error)
                 }
-            });
-        });
-        $('#volume').keypress(function(){
-            let jasa = parseInt($('#jasa').val())
-            let material = parseInt($('#material').val())
-            let volume = parseInt($('#volume').val())
-
-            $('#totalJasa').val(jasa * volume)
-            $('#totalMaterial').val(material * volume)
+            })
         })
+
+        $('#tambah').click(function(){
+            addRow()
+        })
+       function addRow(number){
+           let tr = '<tr>'
+           tr += `
+           <td>
+                <select class="form-control pilihBarang">
+                    <option selected>Choose...</option>
+                    @foreach($barangs as $barang)
+                        <option value="{{$barang->id}}">{{$barang->nama}}</option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <input type="number" class="form-control volume" name="volume[]" >
+            </td>
+            <td>
+                <input type="text" class="form-control satuan" name="satuan[]"  readonly>
+            </td>
+            <td>
+                <input type="number" class="form-control hargaMaterial"  readonly>
+            </td>
+            <td>
+                <input type="number" class="form-control hargaJasa"  readonly>
+            </td>
+            <td>
+                <input type="number" class="form-control totalMaterial" name="totalMaterial[]"  readonly>
+            </td>
+            <td>
+                <input type="number" class="form-control totalJasa" name="totalJasa[]" readonly>
+            </td>
+            <td>
+                <input type="text" class="form-control keterangan" name="keterangan[]"  >
+            </td>
+            <td>
+                <a href="#" class="btn btn-danger remove">hapus</a>
+            </td>
+           `
+            $('tbody').append(tr)
+       }
   })
 </script>
 @endsection
