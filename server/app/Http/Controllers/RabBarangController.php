@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Barang;
 use App\Rab;
-use App\rabBarangs;
+use App\RabBarang;
 
 class RabBarangController extends Controller
 {
@@ -30,7 +30,7 @@ class RabBarangController extends Controller
     {
         //
         $barang = Barang::all();
-        return view('rabBarangs.create', ['barangs' => $barang]);
+        return view('rabBarangs.create', ['barangs' => $barang, 'id' => $id]);
     }
 
     /**
@@ -41,7 +41,79 @@ class RabBarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // if($request->ajax()){
+        //     $rules = array(
+        //         'rab_id'    => 'required',
+        //         'barang_id' => 'required',
+        //         'volume'    => 'required'
+        //     );
+        //     $error = validator::make($request->all(), $rules);
+        //     if($error->fails()){
+        //         return response()->json([
+        //             'error' => $error->errors()->all()
+        //         ]);
+        //     }
+        //      $rab_id= $request->rab_id;
+        //      $volume= $request->volume;
+        //      $barang_id= $request->barang_id;
+        //      $totalMaterial= $request->totalMaterial;
+        //      $totalJasa= $request->totalJasa;
+
+        //       for($i = 0; $i < count($barang_id); $i++){
+        //         if($totalMaterial[$i] === null){
+        //             $totalMaterial[$i] = 0;
+        //         };
+        //         if($totalJasa[$i] === null){
+        //             $totalJasa[$i] = 0;
+        //         };
+        //         $data = array(
+        //             "rab_id"        =>  $rab_id,
+        //             "barang_id"     =>  $barang_id[$i],
+        //             "volume"        =>  $volume[$i],
+        //             "totalMaterial" =>  $totalMaterial[$i],
+        //             "totalJasa"     =>  $totalJasa[$i]
+        //         );
+        //         $insert_data[] = $data;
+        //       };
+        //       RabBarang::insert($insert_data);
+        //       return response()->json([
+        //           'success' => 'barang berhasil ditambahkan'
+        //       ])
+        // };
+
+        $request->validate([
+            'rab_id'    => 'required',
+            'barang_id' => 'required',
+            'volume'    => 'required'
+        ]);
+        
+        $rab_id= $request->rab_id;
+        $volume= $request->volume;
+        $barang_id= $request->barang_id;
+        $totalMaterial= $request->totalMaterial;
+        $totalJasa= $request->totalJasa;
+       
+        for($i = 0; $i < count($barang_id); $i++){
+            if($totalMaterial[$i] === null){
+                $totalMaterial[$i] = 0;
+            };
+            if($totalJasa[$i] === null){
+                $totalJasa[$i] = 0;
+            };
+            $data = array(
+                "rab_id"        =>  $rab_id,
+                "barang_id"     =>  $barang_id[$i],
+                "volume"        =>  $volume[$i],
+                "totalMaterial" =>  $totalMaterial[$i],
+                "totalJasa"     =>  $totalJasa[$i]
+            );
+            $insert_data[] = $data;
+        };
+
+        RabBarang::insert($insert_data);
+
+        return redirect('/rabs'.'/'.$rab_id)->with('mssg', 'barang berhasil ditambahkan');
+        
     }
 
     /**
@@ -85,8 +157,12 @@ class RabBarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $rabId)
     {
         //
+        $barang = RabBarang::find($id);
+        $barang->delete();
+
+        return redirect('/rabs'.'/'.$rabId)->with('mssg', 'barang berhasil dihapus');
     }
 }

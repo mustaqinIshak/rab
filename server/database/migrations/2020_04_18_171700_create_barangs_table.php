@@ -17,8 +17,8 @@ class CreateBarangsTable extends Migration
             $table->increments('id');
             $table->string('nama', 255);
             $table->string('satuan');
-            $table->integer('material')->nullable();
-            $table->integer('jasa')->nullable();
+            $table->integer('material')->default('0');
+            $table->integer('jasa')->default('0');
             $table->string('keterangan', 255)->nullable();
             $table->timestamps();
         });

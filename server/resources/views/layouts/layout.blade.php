@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
     <title>PT. ASU</title>
 
@@ -30,7 +31,7 @@
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="/barangs">PT. Asu</a>
+    <a class="navbar-brand" href="/rabs">PT. Asu</a>
     <button class="navbar-toggler" 
             type="button" 
             data-toggle="collapse" 

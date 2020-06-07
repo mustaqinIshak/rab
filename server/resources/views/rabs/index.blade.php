@@ -62,7 +62,7 @@
                                     <form action="/rabs/{{$rab->id}}" method="post">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah anda yakin ingin menghapus data ini ?')">Hapus</button>
                                     </form>
                                 </td>
                             </tr>

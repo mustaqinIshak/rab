@@ -18,9 +18,9 @@ class CreateRabBarangsTable extends Migration
             $table->foreignId('rab_id');
             $table->foreignId('barang_id');
             $table->bigInteger('volume');
-            $table->bigInteger('totalMaterial')->nullabel($value = true);
-            $table->bigInteger('totalJasa')->nullabel($value = true);
-            $table->longText('keterangan')->nullabel($value = true);
+            $table->bigInteger('totalMaterial')->default('0');
+            $table->bigInteger('totalJasa')->default('0');
+            $table->string('keterangan', 255)->nullable();
             $table->timestamps();
         });
     }

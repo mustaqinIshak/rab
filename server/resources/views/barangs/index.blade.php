@@ -54,7 +54,7 @@
                         <td>{{$barang->keterangan}}</td>
                         <td>
                             <a href="/barangs/{{$barang->id}}" class="btn btn-secondary">detail</a>
-                            <a href="/barangs/destroy/{{$barang->id}}" class="btn btn-danger">Delete</a>
+                            <a href="/barangs/destroy/{{$barang->id}}" class="btn btn-danger" onclick="return confirm('apakah anda yakin ingin menghapus data ini ?')">Delete</a>
                         </td>
                     </tr>
                 @endforeach

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Rab;
 use App\Barang;
+use App\RabBarang;
 
 class RabController extends Controller
 {
@@ -25,7 +26,14 @@ class RabController extends Controller
 
     public function show($id) {
         $rab = Rab::findOrFail($id);
-        return view('rabs.show', ['rab'=>$rab]);
+        $barangs = Rab::findOrFail($id)->barangs()->get();
+        $totalHargaMaterial = 0;
+        $totalHargaJasa = 0;
+        foreach($barangs as $barang){
+            $totalHargaMaterial += $barang->pivot->totalMaterial;
+            $totalHargaJasa += $barang->pivot->totalJasa;
+        }
+        return view('rabs.show', ['rab'=>$rab, 'barangs'=>$barangs, 'totalHargaMaterial'=>$totalHargaMaterial, 'totalHargaJasa'=>$totalHargaJasa]);
     }
 
     public function store(Request $request){
@@ -57,7 +65,9 @@ class RabController extends Controller
 
     public function destroy($id){
         $rab = Rab::findOrFail($id);
+        $barang = RabBarang::where('rab_id', $id);
         $rab->delete();
+        $barang->delete();
         return redirect('/rabs')->with('mssg', 'rab berhasil dihapus');
     }
 

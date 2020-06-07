@@ -9,7 +9,7 @@ class Rab extends Model
     //
     protected $table = "rabs";
     protected $fillable = ['noRab', 'nama'];
-    public function barangs (){
-        return $this->belongsToMany('App/Barang');
+    public function barangs(){
+        return $this->belongsToMany('App\Barang', 'rab_barangs')->withPivot('id', 'volume', 'totalMaterial', 'totalJasa', 'keterangan');
     }
 }

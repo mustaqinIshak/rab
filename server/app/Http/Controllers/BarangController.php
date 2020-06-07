@@ -15,14 +15,25 @@ class BarangController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'nama'=>'required'
+            'nama'=>'required',
+            'satuan'=>'required'
         ]);
-            $barang = new Barang();
+        $material = request('material');
+        $jasa = request('jasa');
 
+        if($material === null){
+            $material = 0;
+        }
+
+        if($jasa === null){
+            $jasa = 0;
+        }
+            $barang = new Barang();
+            
             $barang->nama = request('nama');
             $barang->satuan = request('satuan');
-            $barang->material =request('material');
-            $barang->jasa = request('jasa');
+            $barang->material = $material;
+            $barang->jasa = $jasa;
             $barang->keterangan = request('keterangan');
             $barang->save();
     

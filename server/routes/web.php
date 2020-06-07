@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/rabs', 'RabController@index');
@@ -35,4 +35,4 @@ Route::get('/barangs/destroy/{id}', 'BarangController@destroy');
 Route::get('/rabBarangs/add/{id}', 'RabBarangController@create');
 Route::get('/rabBarangs/barang/{id}', 'RabBarangController@showBarang');
 Route::post('/rabBarangs', 'RabBarangController@store');
-Route::delete('/rabBarangs', 'RabBarangController@destroy');
+Route::delete('/rabBarangs/{id}/{rabId}', 'RabBarangController@destroy');
