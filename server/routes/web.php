@@ -13,26 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::get('/', 'UserController@show');
+Route::post('/login', 'UserController@login');
+Route::get('/logout', 'UserController@logout');
 
-Route::get('/rabs', 'RabController@index');
-Route::get('/rabs/{id}','RabController@show') ;
-Route::get('/rabs/edit/{id}','RabController@edit') ;
-Route::get('/rabs/create','RabController@create');
-Route::post('/rabs','RabController@store');
-Route::patch('/rabs/{id}', 'RabController@update');
-Route::delete('/rabs/{id}','RabController@destroy');
+Route::get('/rabs', 'RabController@index')->middleware('authentication');
+Route::get('/rabs/{id}','RabController@show')->middleware('authentication');
+Route::get('/rabs/edit/{id}','RabController@edit')->middleware('authentication');
+Route::get('/rabs/create','RabController@create')->middleware('authentication');
+Route::post('/rabs','RabController@store')->middleware('authentication');
+Route::patch('/rabs/{id}', 'RabController@update')->middleware('authentication');
+Route::delete('/rabs/{id}','RabController@destroy')->middleware('authentication');
 
-Route::get('/barangs/buat', 'BarangController@create');
-Route::get('/barangs', 'BarangController@index');
-Route::get('/barangs/{id}', 'BarangController@show');
-Route::post('/barangs', 'BarangController@store');
-Route::post('/barangs/update', 'BarangController@update');
-Route::get('/barangs/destroy/{id}', 'BarangController@destroy');
+Route::get('/barangs/buat', 'BarangController@create')->middleware('authentication');
+Route::get('/barangs', 'BarangController@index')->middleware('authentication');
+Route::get('/barangs/{id}', 'BarangController@show')->middleware('authentication');
+Route::post('/barangs', 'BarangController@store')->middleware('authentication');
+Route::post('/barangs/update', 'BarangController@update')->middleware('authentication');
+Route::get('/barangs/destroy/{id}', 'BarangController@destroy')->middleware('authentication');
 
-Route::get('/rabBarangs/add/{id}', 'RabBarangController@create');
-Route::get('/rabBarangs/barang/{id}', 'RabBarangController@showBarang');
-Route::post('/rabBarangs', 'RabBarangController@store');
-Route::delete('/rabBarangs/{id}/{rabId}', 'RabBarangController@destroy');
+Route::get('/rabBarangs/add/{id}', 'RabBarangController@create')->middleware('authentication');
+Route::get('/rabBarangs/barang/{id}', 'RabBarangController@showBarang')->middleware('authentication');
+Route::post('/rabBarangs', 'RabBarangController@store')->middleware('authentication');
+Route::delete('/rabBarangs/{id}/{rabId}', 'RabBarangController@destroy')->middleware('authentication');

@@ -50,10 +50,10 @@
                     data-toggle="dropdown" 
                     aria-haspopup="true" 
                     aria-expanded="false">
-                    Name
+                    {{Session::get('name')}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">logout</a>
+                    <a class="dropdown-item" href="/logout">logout</a>
                 </div>
             </li>
         </ul>
