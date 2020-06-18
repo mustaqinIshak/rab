@@ -25,6 +25,11 @@
             </button>
         </div>
     @endif
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> 251eadb13dfd071627aa179c28bf4eb10e7a5be1
     <div class="row">
         <div class="col-12 daftar-barang-rab">
             @if($errors->any()) 
