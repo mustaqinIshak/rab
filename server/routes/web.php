@@ -34,5 +34,6 @@ Route::get('/barangs/destroy/{id}', 'BarangController@destroy')->middleware('aut
 
 Route::get('/rabBarangs/add/{id}', 'RabBarangController@create')->middleware('authentication');
 Route::get('/rabBarangs/barang/{id}', 'RabBarangController@showBarang')->middleware('authentication');
+Route::get('/rabBarangs/cetak-pdf/{id}', 'RabBarangController@cetak_pdf');
 Route::post('/rabBarangs', 'RabBarangController@store')->middleware('authentication');
 Route::delete('/rabBarangs/{id}/{rabId}', 'RabBarangController@destroy')->middleware('authentication');

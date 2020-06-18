@@ -8,6 +8,8 @@ use App\Barang;
 use App\Rab;
 use App\RabBarang;
 
+use PDF;
+
 class RabBarangController extends Controller
 {
     /**
@@ -164,5 +166,32 @@ class RabBarangController extends Controller
         $barang->delete();
 
         return redirect('/rabs'.'/'.$rabId)->with('mssg', 'barang berhasil dihapus');
+    }
+
+    public function cetak_pdf($id) {
+        $rab = Rab::findOrFail($id);
+        $barangs = Rab::findOrFail($id)->barangs()->get();
+        $totalHargaMaterial = 0;
+        $totalHargaJasa = 0;
+        foreach($barangs as $barang){
+            $totalHargaMaterial += $barang->pivot->totalMaterial;
+            $totalHargaJasa += $barang->pivot->totalJasa;
+        }
+
+        // $pdf = PDF::loadview('rabs.cetak-pdf', [
+        //     'rab'=>$rab, 
+        //     'barangs'=>$barangs, 
+        //     'totalHargaMaterial'=>$totalHargaMaterial, 
+        //     'totalHargaJasa'=>$totalHargaJasa, 
+        //     'totalKeseluruhan' =>$totalHargaMaterial + $totalHargaJasa
+        //     ]);
+        // return $pdf->download('cetak.pdf');
+        return view('rabs.cetak-pdf', [
+            'rab'=>$rab, 
+            'barangs'=>$barangs, 
+            'totalHargaMaterial'=>$totalHargaMaterial, 
+            'totalHargaJasa'=>$totalHargaJasa, 
+            'totalKeseluruhan' =>$totalHargaMaterial + $totalHargaJasa
+            ]);
     }
 }

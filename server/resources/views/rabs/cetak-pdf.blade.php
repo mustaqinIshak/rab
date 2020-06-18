@@ -1,44 +1,36 @@
-@extends('layouts.layout')
-@section('content')
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <title>Document</title>
+
+</head>
+<body>
+<style type="text/css" media="print">
+
+@page { 
+        size: landscape;
+}
+
+table tr td,
+table tr th{
+    font-size: 9pt;
+}
+</style>
+<div class="container-fluid">
     <div class="row">
         <div class="col-12 detail-rab">
-            <h4 id="idRab">{{$rab->id}}</h4>
             <h4>Nomor RAB : {{$rab->noRab}}</h4>
             <h4>Nama : {{$rab->nama}}</h4>
             <h4>Tanggal : {{$rab->created_at}}</h4>
         </div>
     </div>
-    
-    <div class="row tambah-barang">
-        <div class="col-12">
-            <a href="/rabBarangs/add/{{$rab->id}}" class="btn btn-primary">tambah Barang</a >
-            <a href="/rabBarangs/cetak-pdf/{{$rab->id}}">Cetak</a>
-            
-        </div>
-    </div>
-    @if(session('mssg'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{(session('mssg'))}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    <div class="row">
-        <div class="col-12 daftar-barang-rab">
-            @if($errors->any()) 
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>
-                            {{$error}}
-                        </li>
-                        @endforeach
-                    </ul>
-                </div><br />
-            @endif
-            <table class="table">
+
+
+            <table class="table table-bordered">
                 <thead>
                     <th scope="col">Id Barang</th>
                     <th scope="col">Rincian</th>
@@ -48,7 +40,6 @@
                     <th scope="col">Total Material</th>
                     <th scope="col">Total Jasa</th>
                     <th scope="col">Ket</th>
-                    <th scopr="col">Action</th>
                 </thead>
                 <tbody>
                 @if($barangs)
@@ -62,13 +53,6 @@
                         <td>{{$barang->pivot->totalMaterial}}</td>
                         <td>{{$barang->pivot->totalJasa}}</td>
                         <td>{{$barang->pivot->keterangan}}</td>
-                        <td>
-                            <form action="/rabBarangs/{{$barang->pivot->id}}/{{$rab->id}}" method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('apakah anda yakin ingin menghapus data ini ?')">Delete</button>
-                            </form>
-                        </td>
                    </tr>
                    @endforeach
                 @endif
@@ -79,36 +63,35 @@
                         <td id="totalHargaMaterial">{{$totalHargaMaterial}}</td>
                         <td id="totalHargaJasa">{{$totalHargaJasa}}</td>
                         <td></td>
-                        <td></td>
+                    
                     </tr>
                     <tr>
                         <th scope="row" colspan="4">Jasa + Material<th>
-                        <td id="totalKeseluruhan"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td id="totalKeseluruhan" colspan="3">{{$totalKeseluruhan}}</td>
+                       
                     </tr>
                     <tr>
                         <th scope="row" colspan="4">PPN 10%<th>
-                        <td id="ppn"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td id="ppn" colspan="3"></td>
+                        
+                    </tr>
+                    <tr>
+                        <th scope="row" colspan="4">Diskon<th>
+                        <td class="discon" colspan="3"></td>
+                        
                     </tr>
                     <tr>
                         <th scope="row" colspan="4">Total<th>
-                        <td id="total"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td id="total" colspan="3"></td>
+                        
                     </tr>
                 </tfoot>
             </table>
-        </div>
-    </div>
+    
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script type="text/javascript">
- $(document).ready(function(){
+$(document).ready(function(){
     let material = parseInt($("#totalHargaMaterial").text()) 
     let jasa = parseInt($("#totalHargaJasa").text())
     let id = parseInt($("#idRab").text())
@@ -130,21 +113,10 @@
         return total + ppn
     }
 
-    
     $("#totalKeseluruhan").text(jumlahTotal())
     $("#ppn").text(jumlahPpn())
     $("#total").text(jumlahKeseluruhan())
-    $("#disc").change(function() {
-        let jumlah = totalKeseluruhan
-        let diskon = $("#disc").val()
-        nDiskon = diskon
-        if(diskon < 0 || diskon > 100){
-            $("#total").text(total)
-        } else {
-            $("#total").text(jumlah - Math.floor((jumlah * diskon)/ 100))
-            console.log(Math.floor((jumlah * diskon)/ 100))
-        }
-    })
- })
+})
 </script>
-@endsection
+</body>
+</html>
